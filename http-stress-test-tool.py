@@ -30,13 +30,12 @@ if __name__ == "__main__":
         "http://10.0.0.88/blank.txt",
         "http://10.0.0.88/anotherfile.txt",
         "http://10.0.0.88/emptyfile.txt",
-    ] * 3334
+    ] * 334
     print(f'Started HTTP Stress Test @ {program_start_time}')
     start_time = time()
     http_client_multiprocessor_map(http_target_list)
     duration = time() - start_time
     program_stop_time = strftime("%a, %d %b %Y %H:%M:%S", localtime())
     print(f'Stopped HTTP Stress Test @ {program_stop_time}')
-    total_targets = len(http_target_list)
-    clean_total_targets = "{:,}".format(total_targets)
-    print(f'Sent {clean_total_targets} HTTP GET Requests in {duration} seconds')
+    total_targets = "{:,}".format(len(http_target_list))
+    print(f'Sent {total_targets} HTTP GET Requests in {duration} seconds')
