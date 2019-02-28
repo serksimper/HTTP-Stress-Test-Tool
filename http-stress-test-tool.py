@@ -12,15 +12,16 @@ def global_requests_session():
         session = requests.Session()
 
 
-def fetch_http_target(url):
+def http_client_sessions_to_map(url):
     with session.get(url) as response:
         blank_var = response.status_code
-        # reserved for future use and debugging
+        #cpu_count = multiprocessing.cpu_count()
+        #print(f'Server CPU Count: {cpu_count}')
 
 
-def fetch_all_http_targets(http_target_list):
+def http_client_multiprocessor_map(http_target_list):
     with multiprocessing.Pool(initializer=global_requests_session) as pool:
-        pool.map(fetch_http_target, http_target_list)
+        pool.map(http_client_sessions_to_map, http_target_list)
 
 
 if __name__ == "__main__":
@@ -32,7 +33,7 @@ if __name__ == "__main__":
     ] * 3334
     print(f'Started HTTP Stress Test @ {program_start_time}')
     start_time = time()
-    fetch_all_http_targets(http_target_list)
+    http_client_multiprocessor_map(http_target_list)
     duration = time() - start_time
     program_stop_time = strftime("%a, %d %b %Y %H:%M:%S", localtime())
     print(f'Stopped HTTP Stress Test @ {program_stop_time}')
